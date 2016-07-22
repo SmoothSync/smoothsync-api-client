@@ -25,11 +25,11 @@ import com.smoothsync.api.model.Service;
 
 
 /**
- * A {@link Service} that takes the JSON representation of a service entry. 
+ * A {@link Service} that takes the JSON representation of a service entry.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonService implements Service
+public final class JsonService implements Service
 {
 
 	private final JSONObject mResult;

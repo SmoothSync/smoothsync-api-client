@@ -4,10 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smoothsync</groupId>
 	<artifactId>smoothsync-api-client</artifactId>
-	<version>0.1</version>
+	<version>0.2</version>
 	<packaging>jar</packaging>
 	<name>smoothsync-api-client</name>
-	<description>A client implementation of the SmoothSync API.</description>
+	<description>A client implementation of the SmoothSync API.
+	</description>
 	<url>https://github.com/SmoothSync/smoothsync-api-client</url>
 	<licenses>
 		<license>
@@ -52,25 +53,25 @@
 		<dependency>
 			<groupId>org.dmfs</groupId>
 			<artifactId>http-client-essentials</artifactId>
-			<version>0.6.1</version>
+			<version>0.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.dmfs</groupId>
 			<artifactId>http-client-types</artifactId>
-			<version>0.6</version>
+			<version>0.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.dmfs</groupId>
 			<artifactId>http-client-basics</artifactId>
-			<version>0.6.2</version>
+			<version>0.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.dmfs</groupId>
 			<artifactId>http-client-headers</artifactId>
-			<version>0.6</version>
+			<version>0.7</version>
 		</dependency>
 
 		<dependency>
@@ -88,7 +89,7 @@
 		<dependency>
 			<groupId>org.dmfs</groupId>
 			<artifactId>oauth2-essentials</artifactId>
-			<version>0.1</version>
+			<version>0.2</version>
 		</dependency>
 
 		<dependency>

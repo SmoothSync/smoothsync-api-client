@@ -23,11 +23,11 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
 
-import org.dmfs.httpclient.parameters.Parameter;
-import org.dmfs.httpclient.parameters.ParameterType;
-import org.dmfs.httpclient.types.Link;
-import org.dmfs.httpclient.types.MediaType;
-import org.dmfs.httpclient.types.StringMediaType;
+import org.dmfs.httpessentials.parameters.Parameter;
+import org.dmfs.httpessentials.parameters.ParameterType;
+import org.dmfs.httpessentials.types.Link;
+import org.dmfs.httpessentials.types.MediaType;
+import org.dmfs.httpessentials.types.StringMediaType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +39,7 @@ import org.json.JSONObject;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonLink implements Link
+public final class JsonLink implements Link
 {
 	private final JSONObject mJsonObject;
 

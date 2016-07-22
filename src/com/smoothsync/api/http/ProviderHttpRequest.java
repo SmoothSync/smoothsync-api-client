@@ -19,13 +19,13 @@ package com.smoothsync.api.http;
 
 import java.io.IOException;
 
-import org.dmfs.httpclient.HttpRequest;
-import org.dmfs.httpclient.HttpResponse;
-import org.dmfs.httpclient.HttpResponseHandler;
-import org.dmfs.httpclient.HttpStatus;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.responsehandlers.FailResponseHandler;
+import org.dmfs.httpessentials.HttpStatus;
+import org.dmfs.httpessentials.client.HttpRequest;
+import org.dmfs.httpessentials.client.HttpResponse;
+import org.dmfs.httpessentials.client.HttpResponseHandler;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.responsehandlers.FailResponseHandler;
 import org.json.JSONObject;
 
 import com.smoothsync.api.model.Provider;
@@ -37,7 +37,7 @@ import com.smoothsync.api.model.impl.JsonProvider;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class ProviderHttpRequest extends AbstractApiGetRequest<Provider>
+public final class ProviderHttpRequest extends AbstractApiGetRequest<Provider>
 {
 	public final static ProviderHttpRequest INSTANCE = new ProviderHttpRequest();
 

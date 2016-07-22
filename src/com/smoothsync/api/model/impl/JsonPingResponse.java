@@ -17,7 +17,7 @@
 
 package com.smoothsync.api.model.impl;
 
-import org.dmfs.httpclient.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.rfc5545.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ import com.smoothsync.api.model.PingResponse;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonPingResponse implements PingResponse
+public final class JsonPingResponse implements PingResponse
 {
 	private final JSONObject mJsonPingResponse;
 

@@ -20,11 +20,12 @@ package com.smoothsync.api.requests;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpclient.HttpRequestExecutor;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.exceptions.RedirectionException;
-import org.dmfs.httpclient.exceptions.UnexpectedStatusException;
+import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
+import org.dmfs.httpessentials.client.HttpRequestExecutor;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.RedirectionException;
+import org.dmfs.httpessentials.exceptions.UnexpectedStatusException;
 
 import com.smoothsync.api.SmoothSyncApiRequest;
 import com.smoothsync.api.http.ProviderHttpRequest;
@@ -36,7 +37,7 @@ import com.smoothsync.api.model.Provider;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public final class ProviderRequest implements SmoothSyncApiRequest<Provider>
+public final class ProviderGet implements SmoothSyncApiRequest<Provider>
 {
 
 	private final String mProviderId;
@@ -48,16 +49,16 @@ public final class ProviderRequest implements SmoothSyncApiRequest<Provider>
 	 * @param providerId
 	 *            The id of the provider to retrieve.
 	 */
-	public ProviderRequest(String providerId)
+	public ProviderGet(String providerId)
 	{
 		mProviderId = providerId;
 	}
 
 
 	@Override
-	public Provider result(HttpRequestExecutor executor, URI baseUri) throws RedirectionException, UnexpectedStatusException, IOException,
-		ProtocolError, ProtocolException
+	public Provider result(HttpRequestExecutor executor, URI baseUri) throws RedirectionException, UnexpectedStatusException, IOException, ProtocolError,
+		ProtocolException
 	{
-		return executor.execute(baseUri.resolve("providers/" + mProviderId), ProviderHttpRequest.INSTANCE);
+		return executor.execute(baseUri.resolve("providers/" + mProviderId), ProviderHttpRequest.INSTANCE, FollowSecureRedirectCallback.getInstance());
 	}
 }

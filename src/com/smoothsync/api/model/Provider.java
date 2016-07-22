@@ -19,8 +19,8 @@ package com.smoothsync.api.model;
 
 import java.util.Iterator;
 
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.types.Link;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.types.Link;
 import org.dmfs.iterators.FilteredIterator;
 
 

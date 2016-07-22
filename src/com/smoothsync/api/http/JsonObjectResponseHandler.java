@@ -19,13 +19,13 @@ package com.smoothsync.api.http;
 
 import java.io.IOException;
 
-import org.dmfs.httpclient.HttpResponse;
-import org.dmfs.httpclient.HttpResponseHandler;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.responsehandlers.StringResponseHandler;
-import org.dmfs.httpclient.types.MediaType;
-import org.dmfs.httpclient.types.StructuredMediaType;
+import org.dmfs.httpessentials.client.HttpResponse;
+import org.dmfs.httpessentials.client.HttpResponseHandler;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.responsehandlers.StringResponseHandler;
+import org.dmfs.httpessentials.types.MediaType;
+import org.dmfs.httpessentials.types.StructuredMediaType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +35,7 @@ import org.json.JSONObject;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonObjectResponseHandler implements HttpResponseHandler<JSONObject>
+public final class JsonObjectResponseHandler implements HttpResponseHandler<JSONObject>
 {
 	public final static JsonObjectResponseHandler INSTANCE = new JsonObjectResponseHandler();
 

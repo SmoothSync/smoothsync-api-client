@@ -20,15 +20,14 @@ package com.smoothsync.api;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpclient.HttpRequest;
-import org.dmfs.httpclient.HttpRequestExecutor;
-import org.dmfs.httpclient.OnRedirectCallback;
-import org.dmfs.httpclient.OnResponseCallback;
-import org.dmfs.httpclient.callbacks.FollowSecureRedirectCallback;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.exceptions.RedirectionException;
-import org.dmfs.httpclient.exceptions.UnexpectedStatusException;
+import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
+import org.dmfs.httpessentials.client.HttpRequest;
+import org.dmfs.httpessentials.client.HttpRequestExecutor;
+import org.dmfs.httpessentials.client.OnRedirectCallback;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.RedirectionException;
+import org.dmfs.httpessentials.exceptions.UnexpectedStatusException;
 import org.dmfs.oauth2.client.OAuth2AccessToken;
 import org.dmfs.oauth2.client.OAuth2Client;
 import org.dmfs.oauth2.client.OAuth2Grant;
@@ -58,34 +57,11 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 		{
 
 			@Override
-			public <T> void execute(URI uri, HttpRequest<T> request, OnResponseCallback<T> callback, OnRedirectCallback redirectionCallback)
-			{
-				verifyUri(uri);
-				executor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken), callback, FollowSecureRedirectCallback.getInstance());
-			}
-
-
-			@Override
-			public <T> void execute(URI uri, HttpRequest<T> request, OnResponseCallback<T> callback)
-			{
-				execute(uri, request, callback, FollowSecureRedirectCallback.getInstance());
-			}
-
-
-			@Override
 			public <T> T execute(URI uri, HttpRequest<T> request, OnRedirectCallback redirectionCallback) throws IOException, ProtocolError, ProtocolException,
 				RedirectionException, UnexpectedStatusException
 			{
 				verifyUri(uri);
 				return executor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken), FollowSecureRedirectCallback.getInstance());
-			}
-
-
-			@Override
-			public <T> T execute(URI uri, HttpRequest<T> request) throws IOException, ProtocolError, ProtocolException, RedirectionException,
-				UnexpectedStatusException
-			{
-				return execute(uri, request, FollowSecureRedirectCallback.getInstance());
 			}
 
 

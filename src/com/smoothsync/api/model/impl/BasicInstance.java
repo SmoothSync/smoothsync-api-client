@@ -25,7 +25,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 import net.iharder.Base64;
 
-import org.dmfs.httpclient.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.oauth2.client.OAuth2ClientCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;

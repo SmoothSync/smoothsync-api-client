@@ -17,12 +17,12 @@
 
 package com.smoothsync.api.http;
 
-import org.dmfs.httpclient.HttpMethod;
-import org.dmfs.httpclient.HttpRequest;
-import org.dmfs.httpclient.HttpRequestEntity;
-import org.dmfs.httpclient.entities.EmptyHttpRequestEntity;
-import org.dmfs.httpclient.headers.EmptyHeaders;
-import org.dmfs.httpclient.headers.Headers;
+import org.dmfs.httpessentials.HttpMethod;
+import org.dmfs.httpessentials.client.HttpRequest;
+import org.dmfs.httpessentials.client.HttpRequestEntity;
+import org.dmfs.httpessentials.entities.EmptyHttpRequestEntity;
+import org.dmfs.httpessentials.headers.EmptyHeaders;
+import org.dmfs.httpessentials.headers.Headers;
 
 
 /**

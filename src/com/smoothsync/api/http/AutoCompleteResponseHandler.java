@@ -19,10 +19,10 @@ package com.smoothsync.api.http;
 
 import java.io.IOException;
 
-import org.dmfs.httpclient.HttpResponse;
-import org.dmfs.httpclient.HttpResponseHandler;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
+import org.dmfs.httpessentials.client.HttpResponse;
+import org.dmfs.httpessentials.client.HttpResponseHandler;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
 
 import com.smoothsync.api.model.AutoCompleteResult;
 import com.smoothsync.api.model.impl.JsonAutoCompleteResult;
@@ -33,7 +33,7 @@ import com.smoothsync.api.model.impl.JsonAutoCompleteResult;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class AutoCompleteResponseHandler implements HttpResponseHandler<AutoCompleteResult>
+public final class AutoCompleteResponseHandler implements HttpResponseHandler<AutoCompleteResult>
 {
 
 	private final String mDomainFragment;

@@ -17,14 +17,14 @@
 
 package com.smoothsync.api.model;
 
-import org.dmfs.httpclient.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.rfc5545.DateTime;
 
-import com.smoothsync.api.requests.PingRequest;
+import com.smoothsync.api.requests.Ping;
 
 
 /**
- * The response to a {@link PingRequest}.
+ * The response to a {@link Ping}.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */

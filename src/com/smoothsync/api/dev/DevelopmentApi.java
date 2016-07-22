@@ -19,7 +19,7 @@ package com.smoothsync.api.dev;
 
 import java.net.URI;
 
-import org.dmfs.httpclient.HttpRequestExecutor;
+import org.dmfs.httpessentials.client.HttpRequestExecutor;
 
 import com.smoothsync.api.AbstractSmoothSyncApi;
 

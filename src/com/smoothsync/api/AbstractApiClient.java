@@ -20,12 +20,12 @@ package com.smoothsync.api;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpclient.HttpRequest;
-import org.dmfs.httpclient.HttpRequestExecutor;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.exceptions.RedirectionException;
-import org.dmfs.httpclient.exceptions.UnexpectedStatusException;
+import org.dmfs.httpessentials.client.HttpRequest;
+import org.dmfs.httpessentials.client.HttpRequestExecutor;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.exceptions.RedirectionException;
+import org.dmfs.httpessentials.exceptions.UnexpectedStatusException;
 import org.dmfs.oauth2.client.BasicOAuth2Client;
 import org.dmfs.oauth2.client.OAuth2AccessToken;
 import org.dmfs.oauth2.client.OAuth2AuthorizationProvider;

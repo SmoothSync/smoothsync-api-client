@@ -33,7 +33,7 @@ import org.json.JSONObject;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonArrayIterator implements Iterator<JSONObject>
+public final class JsonArrayIterator implements Iterator<JSONObject>
 {
 	private final JSONArray mArray;
 	private int mNext;

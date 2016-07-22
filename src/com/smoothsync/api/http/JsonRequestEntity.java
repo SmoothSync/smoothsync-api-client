@@ -21,9 +21,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
-import org.dmfs.httpclient.HttpRequestEntity;
-import org.dmfs.httpclient.types.MediaType;
-import org.dmfs.httpclient.types.StructuredMediaType;
+import org.dmfs.httpessentials.client.HttpRequestEntity;
+import org.dmfs.httpessentials.types.MediaType;
+import org.dmfs.httpessentials.types.StructuredMediaType;
 import org.json.JSONObject;
 
 
@@ -32,7 +32,7 @@ import org.json.JSONObject;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonRequestEntity implements HttpRequestEntity
+public final class JsonRequestEntity implements HttpRequestEntity
 {
 	private final static MediaType CONTENT_TYPE = new StructuredMediaType("application", "json");
 

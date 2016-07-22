@@ -20,8 +20,8 @@ package com.smoothsync.api.model.impl;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.types.Link;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.types.Link;
 import org.dmfs.iterators.ConvertedIterator;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,7 @@ import com.smoothsync.api.model.Service;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonProvider implements Provider
+public final class JsonProvider implements Provider
 {
 
 	private final JSONObject mResult;

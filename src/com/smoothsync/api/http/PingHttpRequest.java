@@ -19,17 +19,17 @@ package com.smoothsync.api.http;
 
 import java.io.IOException;
 
-import org.dmfs.httpclient.HttpMethod;
-import org.dmfs.httpclient.HttpRequest;
-import org.dmfs.httpclient.HttpRequestEntity;
-import org.dmfs.httpclient.HttpResponse;
-import org.dmfs.httpclient.HttpResponseHandler;
-import org.dmfs.httpclient.HttpStatus;
-import org.dmfs.httpclient.exceptions.ProtocolError;
-import org.dmfs.httpclient.exceptions.ProtocolException;
-import org.dmfs.httpclient.headers.EmptyHeaders;
-import org.dmfs.httpclient.headers.Headers;
-import org.dmfs.httpclient.responsehandlers.FailResponseHandler;
+import org.dmfs.httpessentials.HttpMethod;
+import org.dmfs.httpessentials.HttpStatus;
+import org.dmfs.httpessentials.client.HttpRequest;
+import org.dmfs.httpessentials.client.HttpRequestEntity;
+import org.dmfs.httpessentials.client.HttpResponse;
+import org.dmfs.httpessentials.client.HttpResponseHandler;
+import org.dmfs.httpessentials.exceptions.ProtocolError;
+import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.httpessentials.headers.EmptyHeaders;
+import org.dmfs.httpessentials.headers.Headers;
+import org.dmfs.httpessentials.responsehandlers.FailResponseHandler;
 
 import com.smoothsync.api.model.Instance;
 import com.smoothsync.api.model.PingResponse;
@@ -41,7 +41,7 @@ import com.smoothsync.api.model.impl.JsonPingResponse;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class PingHttpRequest implements HttpRequest<PingResponse>
+public final class PingHttpRequest implements HttpRequest<PingResponse>
 {
 	private final static HttpResponseHandler<PingResponse> RESPONSE_HANDLER = new HttpResponseHandler<PingResponse>()
 	{

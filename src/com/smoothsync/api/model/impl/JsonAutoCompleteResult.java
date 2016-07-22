@@ -29,7 +29,7 @@ import com.smoothsync.api.model.AutoCompleteResult;
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class JsonAutoCompleteResult implements AutoCompleteResult
+public final class JsonAutoCompleteResult implements AutoCompleteResult
 {
 
 	private final JSONObject mResult;
