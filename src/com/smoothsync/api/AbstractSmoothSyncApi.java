@@ -20,10 +20,8 @@ package com.smoothsync.api;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
 import org.dmfs.httpessentials.client.HttpRequest;
 import org.dmfs.httpessentials.client.HttpRequestExecutor;
-import org.dmfs.httpessentials.client.OnRedirectCallback;
 import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.exceptions.RedirectionException;
@@ -57,11 +55,11 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 		{
 
 			@Override
-			public <T> T execute(URI uri, HttpRequest<T> request, OnRedirectCallback redirectionCallback) throws IOException, ProtocolError, ProtocolException,
-				RedirectionException, UnexpectedStatusException
+			public <T> T execute(URI uri, HttpRequest<T> request) throws IOException, ProtocolError, ProtocolException, RedirectionException,
+				UnexpectedStatusException
 			{
 				verifyUri(uri);
-				return executor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken), FollowSecureRedirectCallback.getInstance());
+				return executor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken));
 			}
 
 

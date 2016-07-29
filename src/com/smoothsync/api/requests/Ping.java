@@ -20,7 +20,6 @@ package com.smoothsync.api.requests;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
 import org.dmfs.httpessentials.client.HttpRequestExecutor;
 import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
@@ -54,6 +53,6 @@ public final class Ping implements SmoothSyncApiRequest<PingResponse>
 	public PingResponse result(HttpRequestExecutor executor, URI baseUri) throws RedirectionException, UnexpectedStatusException, IOException, ProtocolError,
 		ProtocolException
 	{
-		return executor.execute(baseUri.resolve("ping"), new PingHttpRequest(mInstance), FollowSecureRedirectCallback.getInstance());
+		return executor.execute(baseUri.resolve("ping"), new PingHttpRequest(mInstance));
 	}
 }

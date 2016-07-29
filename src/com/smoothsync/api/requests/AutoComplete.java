@@ -20,7 +20,6 @@ package com.smoothsync.api.requests;
 import java.io.IOException;
 import java.net.URI;
 
-import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
 import org.dmfs.httpessentials.client.HttpRequestExecutor;
 import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
@@ -52,7 +51,6 @@ public final class AutoComplete implements SmoothSyncApiRequest<AutoCompleteResu
 	public AutoCompleteResult result(HttpRequestExecutor executor, URI baseUri) throws RedirectionException, UnexpectedStatusException, IOException,
 		ProtocolError, ProtocolException
 	{
-		return executor.execute(baseUri.resolve("autocomplete?domain=" + mDomainFragment), new AutoCompleteHttpRequest(mDomainFragment),
-			FollowSecureRedirectCallback.getInstance());
+		return executor.execute(baseUri.resolve("autocomplete?domain=" + mDomainFragment), new AutoCompleteHttpRequest(mDomainFragment));
 	}
 }

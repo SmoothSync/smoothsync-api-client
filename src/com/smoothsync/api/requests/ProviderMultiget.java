@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import org.dmfs.httpessentials.callbacks.FollowSecureRedirectCallback;
 import org.dmfs.httpessentials.client.HttpRequestExecutor;
 import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
@@ -45,7 +44,6 @@ public final class ProviderMultiget implements SmoothSyncApiRequest<List<Provide
 	public List<Provider> result(HttpRequestExecutor executor, URI baseUri) throws RedirectionException, UnexpectedStatusException, IOException, ProtocolError,
 		ProtocolException
 	{
-		return executor.execute(baseUri.resolve("providers/?only_custom_domain=true"), ProvidersHttpRequest.INSTANCE,
-			FollowSecureRedirectCallback.getInstance());
+		return executor.execute(baseUri.resolve("providers/?only_custom_domain=true"), ProvidersHttpRequest.INSTANCE);
 	}
 }
