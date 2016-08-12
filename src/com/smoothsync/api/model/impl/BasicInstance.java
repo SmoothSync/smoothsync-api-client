@@ -26,7 +26,6 @@ import javax.crypto.spec.PBEKeySpec;
 import net.iharder.Base64;
 
 import org.dmfs.httpessentials.exceptions.ProtocolException;
-import org.dmfs.oauth2.client.OAuth2ClientCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,21 +50,21 @@ public final class BasicInstance implements Instance
 	private final static byte[] SALT = new byte[] { 0x53, 0x6d, 0x6f, 0x6f, 0x74, 0x68, 0x53, 0x79, 0x6e, 0x63 };
 
 	private final Provider mProvider;
-	private final OAuth2ClientCredentials mClientCredentials;
+	private final String mClientIdentifier;
 	private final String mAccountIdentifier;
 	private final String mReferrer;
 
 
-	public BasicInstance(Provider provider, OAuth2ClientCredentials clientCredentials, String accountIdentifier)
+	public BasicInstance(Provider provider, String clientCredentials, String accountIdentifier)
 	{
 		this(provider, clientCredentials, accountIdentifier, null);
 	}
 
 
-	public BasicInstance(Provider provider, OAuth2ClientCredentials clientCredentials, String accountIdentifier, String referrer)
+	public BasicInstance(Provider provider, String clientIdentifier, String accountIdentifier, String referrer)
 	{
 		mProvider = provider;
-		mClientCredentials = clientCredentials;
+		mClientIdentifier = clientIdentifier;
 		mAccountIdentifier = accountIdentifier;
 		mReferrer = referrer;
 	}
@@ -83,8 +82,7 @@ public final class BasicInstance implements Instance
 				result.put("referrer", mReferrer);
 			}
 			// we hash the account identifier before sending it to the API to maintain the user's privacy as much as possible
-			result.put("instance-id",
-				Base64.encodeBytes(hashIdentifier(String.format("%s%s%s", mProvider.id(), mClientCredentials.clientId(), mAccountIdentifier))));
+			result.put("instance-id", Base64.encodeBytes(hashIdentifier(String.format("%s%s%s", mProvider.id(), mClientIdentifier, mAccountIdentifier))));
 			return result;
 		}
 		catch (NoSuchAlgorithmException | JSONException | ProtocolException | InvalidKeySpecException e)
