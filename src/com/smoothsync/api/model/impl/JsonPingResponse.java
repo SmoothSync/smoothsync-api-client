@@ -47,7 +47,7 @@ public final class JsonPingResponse implements PingResponse
 		{
 			try
 			{
-				return DateTime.parse(mJsonPingResponse.getString("first-contact"));
+				return DateTime.parse(mJsonPingResponse.getString("first-contact").replaceAll("[-:]", ""));
 			}
 			catch (JSONException e)
 			{
@@ -62,7 +62,7 @@ public final class JsonPingResponse implements PingResponse
 	{
 		try
 		{
-			return DateTime.parse(mJsonPingResponse.getString("sponsored-until"));
+			return DateTime.parse(mJsonPingResponse.getString("sponsored-until").replaceAll("[-:]", ""));
 		}
 		catch (JSONException e)
 		{
