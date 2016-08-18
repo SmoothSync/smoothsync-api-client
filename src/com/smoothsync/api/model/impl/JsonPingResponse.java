@@ -44,15 +44,13 @@ public final class JsonPingResponse implements PingResponse
 	@Override
 	public DateTime firstContactDateTime() throws ProtocolException
 	{
+		try
 		{
-			try
-			{
-				return DateTime.parse(mJsonPingResponse.getString("first-contact").replaceAll("[-:]", ""));
-			}
-			catch (JSONException e)
-			{
-				throw new ProtocolException(String.format("could not load 'first-contact' from JSON\n%s", mJsonPingResponse.toString()), e);
-			}
+			return DateTime.parse(mJsonPingResponse.getString("first-contact").replaceAll("[-:]", ""));
+		}
+		catch (JSONException e)
+		{
+			throw new ProtocolException(String.format("could not load 'first-contact' from JSON\n%s", mJsonPingResponse.toString()), e);
 		}
 	}
 

@@ -26,6 +26,8 @@ import org.dmfs.httpessentials.exceptions.ProtocolError;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.exceptions.RedirectionException;
 import org.dmfs.httpessentials.exceptions.UnexpectedStatusException;
+import org.dmfs.httpessentials.executors.useragent.Branded;
+import org.dmfs.httpessentials.types.VersionedProduct;
 import org.dmfs.oauth2.client.OAuth2AccessToken;
 import org.dmfs.oauth2.client.OAuth2Client;
 import org.dmfs.oauth2.client.OAuth2Grant;
@@ -50,7 +52,8 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 
 	public AbstractSmoothSyncApi(final HttpRequestExecutor executor, final OAuth2Client client, final URI baseUri)
 	{
-		mAccessToken = new LazyAccessToken(new ClientCredentialsGrant(client, EmptyScope.INSTANCE), executor);
+		final HttpRequestExecutor brandedExecutor = new Branded(executor, new VersionedProduct("smoothsync-api-client", "0.4.2"));
+		mAccessToken = new LazyAccessToken(new ClientCredentialsGrant(client, EmptyScope.INSTANCE), brandedExecutor);
 		mExecutor = new HttpRequestExecutor()
 		{
 
@@ -59,7 +62,7 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 				UnexpectedStatusException
 			{
 				verifyUri(uri);
-				return executor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken));
+				return brandedExecutor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken));
 			}
 
 
