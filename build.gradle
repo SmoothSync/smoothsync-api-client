@@ -1,0 +1,65 @@
+plugins {
+    id 'de.fuerstenau.buildconfig' version '1.1.7'
+}
+
+apply plugin: 'java'
+
+def gitVersion = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java', 'build/gen/buildconfig/src/main'
+        }
+    }
+}
+
+sourceCompatibility = 1.7
+
+allprojects {
+    group 'org.dmfs'
+    version gitVersion()
+}
+
+configurations {
+    pom
+}
+
+apply from: 'publish.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+buildConfig {
+    packageName = 'com.smoothsync.api'
+}
+
+tasks.withType(Jar) {
+    eachFile {
+        it.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.dmfs:http-client-essentials:0.10'
+    compile 'org.dmfs:http-client-mockutils:0.10'
+    compile 'org.dmfs:http-client-types:0.10'
+    compile 'org.dmfs:http-client-basics:0.10'
+    compile 'org.dmfs:http-client-headers:0.10'
+    compile 'org.dmfs:http-executor-decorators:0.10'
+    compile 'org.dmfs:oauth2-essentials:0.4.3'
+    compile 'org.dmfs:iterators:1.3.1'
+    compile 'org.dmfs:rfc5545-datetime:0.2.4'
+    compile 'net.iharder:base64:2.3.9'
+    compile 'org.json:json:20160212'
+    testCompile 'org.dmfs:httpurlconnection-executor:0.10'
+}

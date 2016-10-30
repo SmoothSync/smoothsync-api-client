@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smoothsync-api-client.iml" filepath="$PROJECT_DIR$/.idea/modules/smoothsync-api-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smoothsync-api-client_main.iml" filepath="$PROJECT_DIR$/.idea/modules/smoothsync-api-client_main.iml" group="smoothsync-api-client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smoothsync-api-client_test.iml" filepath="$PROJECT_DIR$/.idea/modules/smoothsync-api-client_test.iml" group="smoothsync-api-client" />
+    </modules>
+  </component>
+</project>
