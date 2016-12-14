@@ -21,6 +21,7 @@ import com.smoothsync.api.model.Instance;
 import com.smoothsync.api.model.Provider;
 import net.iharder.Base64;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
+import org.dmfs.rfc5545.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,6 +75,13 @@ public final class BasicInstance implements Instance
 
 
     @Override
+    public Provider provider()
+    {
+        return mProvider;
+    }
+
+
+    @Override
     public JSONObject toJson()
     {
         try
@@ -84,6 +92,10 @@ public final class BasicInstance implements Instance
             {
                 result.put("referrer", mReferrer);
             }
+            DateTime lastModified = mProvider.lastModified();
+            result.put("provider-last-modified",
+                    String.format("%04d-%02d-%02dT%02d:%02d:%02dZ", lastModified.getYear(), lastModified.getMonth() + 1, lastModified.getDayOfMonth(),
+                            lastModified.getHours(), lastModified.getMinutes(), lastModified.getSeconds()));
             // we hash the account identifier before sending it to the API to maintain the user's privacy as much as possible
             result.put("instance-id", Base64.encodeBytes(hashIdentifier(String.format("%s%s%s", mProvider.id(), mClientIdentifier, mAccountIdentifier))));
             return result;

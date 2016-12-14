@@ -22,6 +22,7 @@ import com.smoothsync.api.model.Service;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.types.Link;
 import org.dmfs.iterators.ConvertedIterator;
+import org.dmfs.rfc5545.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,6 +108,13 @@ public final class JsonProvider implements Provider
                 return new JsonService(element);
             }
         });
+    }
+
+
+    @Override
+    public DateTime lastModified() throws ProtocolException
+    {
+        return DateTime.parse(mResult.optString("last-modified").replaceAll("[-:]", ""));
     }
 
 

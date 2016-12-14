@@ -27,5 +27,7 @@ import org.json.JSONObject;
  */
 public interface Instance
 {
+    Provider provider();
+
     JSONObject toJson();
 }

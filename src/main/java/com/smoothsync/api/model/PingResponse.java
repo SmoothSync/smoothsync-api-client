@@ -32,4 +32,13 @@ public interface PingResponse
     DateTime firstContactDateTime() throws ProtocolException;
 
     DateTime sponsoredUntil() throws ProtocolException;
+
+    /**
+     * The provider this response belongs to.
+     *
+     * @return A {@link Provider}.
+     *
+     * @throws ProtocolException
+     */
+    Provider provider() throws ProtocolException;
 }

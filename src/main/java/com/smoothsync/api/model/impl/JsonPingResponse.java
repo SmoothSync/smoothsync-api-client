@@ -18,6 +18,7 @@
 package com.smoothsync.api.model.impl;
 
 import com.smoothsync.api.model.PingResponse;
+import com.smoothsync.api.model.Provider;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.rfc5545.DateTime;
 import org.json.JSONException;
@@ -32,11 +33,13 @@ import org.json.JSONObject;
 public final class JsonPingResponse implements PingResponse
 {
     private final JSONObject mJsonPingResponse;
+    private final Provider mDefaultProvider;
 
 
-    public JsonPingResponse(JSONObject jsonPingResponse)
+    public JsonPingResponse(JSONObject jsonPingResponse, Provider defaultProvider)
     {
         mJsonPingResponse = jsonPingResponse;
+        mDefaultProvider = defaultProvider;
     }
 
 
@@ -64,6 +67,20 @@ public final class JsonPingResponse implements PingResponse
         catch (JSONException e)
         {
             throw new ProtocolException(String.format("could not load 'sponsored-until' from JSON\n%s", mJsonPingResponse.toString()), e);
+        }
+    }
+
+
+    @Override
+    public Provider provider() throws ProtocolException
+    {
+        try
+        {
+            return mJsonPingResponse.has("provider") ? new JsonProvider(mJsonPingResponse.getJSONObject("provider")) : mDefaultProvider;
+        }
+        catch (JSONException e)
+        {
+            throw new ProtocolException(String.format("could not load 'provider' from JSON\n%s", mJsonPingResponse.toString()), e);
         }
     }
 

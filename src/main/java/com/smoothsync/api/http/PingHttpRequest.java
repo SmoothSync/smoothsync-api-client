@@ -19,6 +19,7 @@ package com.smoothsync.api.http;
 
 import com.smoothsync.api.model.Instance;
 import com.smoothsync.api.model.PingResponse;
+import com.smoothsync.api.model.Provider;
 import com.smoothsync.api.model.impl.JsonPingResponse;
 import org.dmfs.httpessentials.HttpMethod;
 import org.dmfs.httpessentials.HttpStatus;
@@ -42,15 +43,6 @@ import java.io.IOException;
  */
 public final class PingHttpRequest implements HttpRequest<PingResponse>
 {
-    private final static HttpResponseHandler<PingResponse> RESPONSE_HANDLER = new HttpResponseHandler<PingResponse>()
-    {
-        @Override
-        public PingResponse handleResponse(HttpResponse response) throws IOException, ProtocolError, ProtocolException
-        {
-            return new JsonPingResponse(JsonObjectResponseHandler.INSTANCE.handleResponse(response));
-        }
-    };
-
     private final Instance mInstance;
 
 
@@ -86,9 +78,27 @@ public final class PingHttpRequest implements HttpRequest<PingResponse>
     {
         if (HttpStatus.OK.equals(response.status()))
         {
-            return RESPONSE_HANDLER;
+            return new PingResponseHttpResponseHandler(mInstance.provider());
         }
         return FailResponseHandler.getInstance();
     }
 
+
+    private final static class PingResponseHttpResponseHandler implements HttpResponseHandler<PingResponse>
+    {
+        private final Provider mProvider;
+
+
+        private PingResponseHttpResponseHandler(Provider provider)
+        {
+            mProvider = provider;
+        }
+
+
+        @Override
+        public PingResponse handleResponse(HttpResponse response) throws IOException, ProtocolError, ProtocolException
+        {
+            return new JsonPingResponse(JsonObjectResponseHandler.INSTANCE.handleResponse(response), mProvider);
+        }
+    }
 }

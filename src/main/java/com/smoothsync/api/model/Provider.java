@@ -20,6 +20,7 @@ package com.smoothsync.api.model;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.types.Link;
 import org.dmfs.iterators.FilteredIterator;
+import org.dmfs.rfc5545.DateTime;
 
 import java.util.Iterator;
 
@@ -76,4 +77,13 @@ public interface Provider
      * @throws ProtocolException
      */
     Iterator<Service> services() throws ProtocolException;
+
+    /**
+     * The {@link DateTime} of when this provider was modified the last time.
+     *
+     * @return
+     *
+     * @throws ProtocolException
+     */
+    DateTime lastModified() throws ProtocolException;
 }
