@@ -21,7 +21,8 @@ import com.smoothsync.api.model.Provider;
 import com.smoothsync.api.model.Service;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.types.Link;
-import org.dmfs.iterators.ConvertedIterator;
+import org.dmfs.iterators.Function;
+import org.dmfs.iterators.decorators.Mapped;
 import org.dmfs.rfc5545.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,10 +86,10 @@ public final class JsonProvider implements Provider
     @Override
     public Iterator<Link> links() throws ProtocolException
     {
-        return iterate("links", new ConvertedIterator.Converter<Link, JSONObject>()
+        return iterate("links", new Function<JSONObject, Link>()
         {
             @Override
-            public Link convert(JSONObject element)
+            public Link apply(JSONObject element)
             {
                 return new JsonLink(element);
             }
@@ -100,10 +101,10 @@ public final class JsonProvider implements Provider
     @Override
     public Iterator<Service> services() throws ProtocolException
     {
-        return iterate("services", new ConvertedIterator.Converter<Service, JSONObject>()
+        return iterate("services", new Function<JSONObject, Service>()
         {
             @Override
-            public Service convert(JSONObject element)
+            public Service apply(JSONObject element)
             {
                 return new JsonService(element);
             }
@@ -118,7 +119,7 @@ public final class JsonProvider implements Provider
     }
 
 
-    private <T> Iterator<T> iterate(String field, ConvertedIterator.Converter<T, JSONObject> converter) throws ProtocolException
+    private <T> Iterator<T> iterate(String field, Function<JSONObject, T> function) throws ProtocolException
     {
         if (!mResult.has(field))
         {
@@ -127,7 +128,7 @@ public final class JsonProvider implements Provider
 
         try
         {
-            return new ConvertedIterator<>(new JsonObjectArrayIterator(mResult.getJSONArray(field)), converter);
+            return new Mapped<>(new JsonObjectArrayIterator(mResult.getJSONArray(field)), function);
         }
         catch (JSONException e)
         {

@@ -19,7 +19,7 @@ package com.smoothsync.api.model;
 
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.types.Link;
-import org.dmfs.iterators.FilteredIterator;
+import org.dmfs.iterators.decorators.Filtered;
 import org.dmfs.rfc5545.DateTime;
 
 import java.util.Iterator;
@@ -60,7 +60,7 @@ public interface Provider
     String[] domains() throws ProtocolException;
 
     /**
-     * An Iterator of {@link Link}s that are related to this provider. Use a {@link FilteredIterator} to retrieve only {@link Link}s with a specific relation
+     * An Iterator of {@link Link}s that are related to this provider. Use a {@link Filtered} to retrieve only {@link Link}s with a specific relation
      * type.
      *
      * @return
@@ -70,7 +70,7 @@ public interface Provider
     Iterator<Link> links() throws ProtocolException;
 
     /**
-     * An Iterator of {@link Service}s provider provides. Use a {@link FilteredIterator} to retrieve only {@link Service}s of a specific service type.
+     * An Iterator of {@link Service}s provider provides. Use a {@link Filtered} to retrieve only {@link Service}s of a specific service type.
      *
      * @return
      *

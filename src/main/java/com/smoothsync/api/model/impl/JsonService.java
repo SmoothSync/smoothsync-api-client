@@ -18,8 +18,8 @@
 package com.smoothsync.api.model.impl;
 
 import com.smoothsync.api.model.Service;
-import org.dmfs.iterators.AbstractConvertedIterator;
-import org.dmfs.iterators.ConvertedIterator;
+import org.dmfs.iterators.Function;
+import org.dmfs.iterators.decorators.Mapped;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -88,11 +88,12 @@ public final class JsonService implements Service
             final CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null, null);
-            Iterator<Certificate> certificateIterator = new ConvertedIterator<>(new JsonStringArrayIterator(array),
-                    new AbstractConvertedIterator.Converter<Certificate, String>()
+            Iterator<Certificate> certificateIterator = new Mapped<>(
+                    new JsonStringArrayIterator(array),
+                    new Function<String, Certificate>()
                     {
                         @Override
-                        public Certificate convert(String element)
+                        public Certificate apply(String element)
                         {
                             try
                             {
