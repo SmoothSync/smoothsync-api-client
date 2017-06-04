@@ -30,7 +30,7 @@ import org.dmfs.oauth2.client.OAuth2Client;
 import org.dmfs.oauth2.client.OAuth2Grant;
 import org.dmfs.oauth2.client.OAuth2Scope;
 import org.dmfs.oauth2.client.grants.ClientCredentialsGrant;
-import org.dmfs.oauth2.client.http.decorators.BearerAuthRequestDecorator;
+import org.dmfs.oauth2.client.http.decorators.BearerAuthenticatedRequest;
 import org.dmfs.oauth2.client.scope.EmptyScope;
 import org.dmfs.rfc5545.DateTime;
 
@@ -62,7 +62,7 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
                     UnexpectedStatusException
             {
                 verifyUri(uri);
-                return brandedExecutor.execute(uri, new BearerAuthRequestDecorator<T>(request, mAccessToken));
+                return brandedExecutor.execute(uri, new BearerAuthenticatedRequest<T>(request, mAccessToken));
             }
 
 
@@ -113,7 +113,7 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 
         private OAuth2AccessToken oauth2AccessToken() throws ProtocolException
         {
-            if (mAccessToken == null || DateTime.now().after(mAccessToken.expiriationDate()))
+            if (mAccessToken == null || DateTime.now().after(mAccessToken.expirationDate()))
             {
                 try
                 {
@@ -129,14 +129,14 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 
 
         @Override
-        public String accessToken() throws ProtocolException
+        public CharSequence accessToken() throws ProtocolException
         {
             return oauth2AccessToken().accessToken();
         }
 
 
         @Override
-        public String tokenType() throws ProtocolException
+        public CharSequence tokenType() throws ProtocolException
         {
             return oauth2AccessToken().tokenType();
         }
@@ -157,16 +157,16 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
 
 
         @Override
-        public String refreshToken() throws ProtocolException
+        public CharSequence refreshToken() throws ProtocolException
         {
             return oauth2AccessToken().refreshToken();
         }
 
 
         @Override
-        public DateTime expiriationDate() throws ProtocolException
+        public DateTime expirationDate() throws ProtocolException
         {
-            return oauth2AccessToken().expiriationDate();
+            return oauth2AccessToken().expirationDate();
         }
 
 

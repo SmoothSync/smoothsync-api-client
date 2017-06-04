@@ -29,6 +29,7 @@ import org.dmfs.oauth2.client.OAuth2AuthorizationProvider;
 import org.dmfs.oauth2.client.OAuth2AuthorizationRequest;
 import org.dmfs.oauth2.client.OAuth2Client;
 import org.dmfs.oauth2.client.OAuth2ClientCredentials;
+import org.dmfs.rfc3986.Uri;
 import org.dmfs.rfc5545.Duration;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public abstract class AbstractApiClient implements OAuth2Client
 
 
     @Override
-    public final URI redirectUri()
+    public final Uri redirectUri()
     {
         throw new UnsupportedOperationException("SmoothSync API doesn't support grant types that use a redirect Uri.");
     }
@@ -74,9 +75,9 @@ public abstract class AbstractApiClient implements OAuth2Client
 
 
     @Override
-    public final String generatedRandomState()
+    public CharSequence randomChars()
     {
-        return mClient.generatedRandomState();
+        return mClient.randomChars();
     }
 
 
