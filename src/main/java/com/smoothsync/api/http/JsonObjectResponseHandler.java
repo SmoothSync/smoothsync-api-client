@@ -45,10 +45,10 @@ public final class JsonObjectResponseHandler implements HttpResponseHandler<JSON
     @Override
     public JSONObject handleResponse(HttpResponse response) throws IOException, ProtocolError, ProtocolException
     {
-        if (!APPLICATION_JSON.equals(response.responseEntity().contentType()))
+        if (!APPLICATION_JSON.equals(response.responseEntity().contentType().value()))
         {
             throw new ProtocolException(String.format("expected content type %s, but got content type %s", APPLICATION_JSON, response.responseEntity()
-                    .contentType()));
+                    .contentType().value()));
         }
 
         try

@@ -19,10 +19,13 @@ package com.smoothsync.api.http;
 
 import org.dmfs.httpessentials.client.HttpResponseEntity;
 import org.dmfs.httpessentials.types.MediaType;
+import org.dmfs.optional.Optional;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
+
+import static org.dmfs.optional.Absent.absent;
 
 
 /**
@@ -42,7 +45,7 @@ public class GzippedResponseEntity implements HttpResponseEntity
 
 
     @Override
-    public MediaType contentType() throws IOException
+    public Optional<MediaType> contentType()
     {
         // return the original content type
         return mDecoratedResponseEntity.contentType();
@@ -50,10 +53,10 @@ public class GzippedResponseEntity implements HttpResponseEntity
 
 
     @Override
-    public long contentLength() throws IOException
+    public Optional<Long> contentLength()
     {
         // we don't know the actual content-length
-        return -1;
+        return absent();
     }
 
 

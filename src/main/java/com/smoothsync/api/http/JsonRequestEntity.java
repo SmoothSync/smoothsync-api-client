@@ -20,6 +20,9 @@ package com.smoothsync.api.http;
 import org.dmfs.httpessentials.client.HttpRequestEntity;
 import org.dmfs.httpessentials.types.MediaType;
 import org.dmfs.httpessentials.types.StructuredMediaType;
+import org.dmfs.optional.Absent;
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -34,7 +37,7 @@ import java.io.UnsupportedEncodingException;
  */
 public final class JsonRequestEntity implements HttpRequestEntity
 {
-    private final static MediaType CONTENT_TYPE = new StructuredMediaType("application", "json");
+    private final static Optional<MediaType> CONTENT_TYPE = new Present<MediaType>(new StructuredMediaType("application", "json"));
 
     private final JSONObject mData;
     private byte[] mContent;
@@ -47,16 +50,16 @@ public final class JsonRequestEntity implements HttpRequestEntity
 
 
     @Override
-    public MediaType contentType()
+    public Optional<MediaType> contentType()
     {
         return CONTENT_TYPE;
     }
 
 
     @Override
-    public long contentLength() throws IOException
+    public Optional<Long> contentLength()
     {
-        return content().length;
+        return content().length >= 0 ? new Present<>((long) content().length) : Absent.<Long>absent();
     }
 
 
@@ -67,13 +70,20 @@ public final class JsonRequestEntity implements HttpRequestEntity
     }
 
 
-    private byte[] content() throws UnsupportedEncodingException
+    private byte[] content()
     {
-        if (mContent == null)
+        try
         {
-            mContent = mData.toString().getBytes("UTF-8");
-        }
+            if (mContent == null)
+            {
+                mContent = mData.toString().getBytes("UTF-8");
+            }
 
-        return mContent;
+            return mContent;
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            throw new RuntimeException("Runtime doesn't support UTF-8 encoding");
+        }
     }
 }
