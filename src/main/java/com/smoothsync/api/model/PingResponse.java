@@ -31,6 +31,8 @@ public interface PingResponse
 {
     DateTime firstContactDateTime() throws ProtocolException;
 
+    DateTime lastContactDateTime() throws ProtocolException;
+
     DateTime sponsoredUntil() throws ProtocolException;
 
     /**

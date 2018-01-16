@@ -58,6 +58,20 @@ public final class JsonPingResponse implements PingResponse
 
 
     @Override
+    public DateTime lastContactDateTime() throws ProtocolException
+    {
+        try
+        {
+            return DateTime.parse(mJsonPingResponse.getString("last-contact").replaceAll("[-:]", ""));
+        }
+        catch (JSONException e)
+        {
+            throw new ProtocolException(String.format("could not load 'last-contact' from JSON\n%s", mJsonPingResponse.toString()), e);
+        }
+    }
+
+
+    @Override
     public DateTime sponsoredUntil() throws ProtocolException
     {
         try
