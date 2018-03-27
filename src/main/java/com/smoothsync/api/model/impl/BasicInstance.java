@@ -29,6 +29,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Locale;
 
 
 /**
@@ -94,7 +95,8 @@ public final class BasicInstance implements Instance
             }
             DateTime lastModified = mProvider.lastModified();
             result.put("provider-last-modified",
-                    String.format("%04d-%02d-%02dT%02d:%02d:%02dZ", lastModified.getYear(), lastModified.getMonth() + 1, lastModified.getDayOfMonth(),
+                    String.format(Locale.ENGLISH,
+                            "%04d-%02d-%02dT%02d:%02d:%02dZ", lastModified.getYear(), lastModified.getMonth() + 1, lastModified.getDayOfMonth(),
                             lastModified.getHours(), lastModified.getMinutes(), lastModified.getSeconds()));
             // we hash the account identifier before sending it to the API to maintain the user's privacy as much as possible
             result.put("instance-id", Base64.encodeBytes(hashIdentifier(String.format("%s%s%s", mProvider.id(), mClientIdentifier, mAccountIdentifier))));
