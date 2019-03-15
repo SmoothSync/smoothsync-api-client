@@ -12,14 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package com.smoothsync.api.model.impl;
 
 import com.smoothsync.api.model.Service;
-import org.dmfs.iterators.Function;
-import org.dmfs.iterators.decorators.Mapped;
+import org.dmfs.jems.iterator.decorators.Mapped;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -89,26 +88,21 @@ public final class JsonService implements Service
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null, null);
             Iterator<Certificate> certificateIterator = new Mapped<>(
-                    new JsonStringArrayIterator(array),
-                    new Function<String, Certificate>()
-                    {
-                        @Override
-                        public Certificate apply(String element)
+                    element -> {
+                        try
                         {
-                            try
-                            {
-                                return certificateFactory.generateCertificate(new ByteArrayInputStream(element.getBytes("UTF-8")));
-                            }
-                            catch (CertificateException e)
-                            {
-                                throw new IllegalArgumentException(String.format("Can't decode certificate %s", element), e);
-                            }
-                            catch (UnsupportedEncodingException e)
-                            {
-                                throw new RuntimeException("UTF-8 not supported by runtime", e);
-                            }
+                            return certificateFactory.generateCertificate(new ByteArrayInputStream(element.getBytes("UTF-8")));
                         }
-                    });
+                        catch (CertificateException e)
+                        {
+                            throw new IllegalArgumentException(String.format("Can't decode certificate %s", element), e);
+                        }
+                        catch (UnsupportedEncodingException e)
+                        {
+                            throw new RuntimeException("UTF-8 not supported by runtime", e);
+                        }
+                    },
+                    new JsonStringArrayIterator(array));
             StringBuilder aliasBuilder = new StringBuilder("alias");
             int count = 0;
             while (certificateIterator.hasNext())

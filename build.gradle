@@ -2,7 +2,7 @@ plugins {
     id 'de.fuerstenau.buildconfig' version '1.1.7'
 }
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 
 def gitVersion = { ->
     def stdout = new ByteArrayOutputStream()
@@ -21,7 +21,7 @@ sourceSets {
     }
 }
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 allprojects {
     group 'org.dmfs'
@@ -49,18 +49,18 @@ tasks.withType(Jar) {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'org.dmfs:http-client-essentials:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    compile 'org.dmfs:http-client-types:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    compile 'org.dmfs:http-client-basics:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    compile 'org.dmfs:http-client-headers:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    compile 'org.dmfs:http-executor-decorators:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    compile 'org.dmfs:oauth2-essentials:' + OAUTH2_ESSENTIALS_VERSION
-    compile 'org.dmfs:jems:' + JEMS_VERSION
-    compile 'org.dmfs:rfc3986-uri:0.7'
-    compile 'org.dmfs:rfc5545-datetime:0.2.4'
-    compile 'net.iharder:base64:2.3.9'
-    compile 'org.json:json:20160212'
-    testCompile 'org.dmfs:http-client-mockutils:' + HTTP_CLIENT_ESSENTIALS_VERSION
-    testCompile 'org.dmfs:httpurlconnection-executor:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    api 'org.dmfs:rfc5545-datetime:0.2.4'
+    api 'org.json:json:20160212'
+    api 'org.dmfs:http-client-essentials:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    implementation 'org.dmfs:http-client-types:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    implementation 'org.dmfs:http-client-basics:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    implementation 'org.dmfs:http-client-headers:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    implementation 'org.dmfs:http-executor-decorators:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    implementation 'org.dmfs:oauth2-essentials:' + OAUTH2_ESSENTIALS_VERSION
+    implementation 'org.dmfs:jems:' + JEMS_VERSION
+    implementation 'org.dmfs:rfc3986-uri:0.8.1'
+    implementation 'net.iharder:base64:2.3.9'
+    testImplementation 'org.dmfs:http-client-mockutils:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    testImplementation 'org.dmfs:httpurlconnection-executor:' + HTTP_CLIENT_ESSENTIALS_VERSION
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }

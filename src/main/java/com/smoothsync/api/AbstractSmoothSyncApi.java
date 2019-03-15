@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package com.smoothsync.api;
@@ -25,6 +25,7 @@ import org.dmfs.httpessentials.exceptions.RedirectionException;
 import org.dmfs.httpessentials.exceptions.UnexpectedStatusException;
 import org.dmfs.httpessentials.executors.useragent.Branded;
 import org.dmfs.httpessentials.types.CommentedProduct;
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.oauth2.client.OAuth2AccessToken;
 import org.dmfs.oauth2.client.OAuth2Client;
 import org.dmfs.oauth2.client.OAuth2Grant;
@@ -174,6 +175,20 @@ public abstract class AbstractSmoothSyncApi implements SmoothSyncApi
         public OAuth2Scope scope() throws ProtocolException
         {
             return oauth2AccessToken().scope();
+        }
+
+
+        @Override
+        public Optional<CharSequence> extraParameter(String parameterName)
+        {
+            try
+            {
+                return oauth2AccessToken().extraParameter(parameterName);
+            }
+            catch (ProtocolException e)
+            {
+                throw new RuntimeException("Unexpected ProtocolException", e);
+            }
         }
 
     }

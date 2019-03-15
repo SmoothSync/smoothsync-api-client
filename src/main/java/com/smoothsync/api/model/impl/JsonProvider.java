@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package com.smoothsync.api.model.impl;
@@ -21,8 +21,8 @@ import com.smoothsync.api.model.Provider;
 import com.smoothsync.api.model.Service;
 import org.dmfs.httpessentials.exceptions.ProtocolException;
 import org.dmfs.httpessentials.types.Link;
-import org.dmfs.iterators.Function;
-import org.dmfs.iterators.decorators.Mapped;
+import org.dmfs.jems.function.Function;
+import org.dmfs.jems.iterator.decorators.Mapped;
 import org.dmfs.rfc5545.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,14 +86,7 @@ public final class JsonProvider implements Provider
     @Override
     public Iterator<Link> links() throws ProtocolException
     {
-        return iterate("links", new Function<JSONObject, Link>()
-        {
-            @Override
-            public Link apply(JSONObject element)
-            {
-                return new JsonLink(element);
-            }
-        });
+        return iterate("links", JsonLink::new);
 
     }
 
@@ -101,19 +94,12 @@ public final class JsonProvider implements Provider
     @Override
     public Iterator<Service> services() throws ProtocolException
     {
-        return iterate("services", new Function<JSONObject, Service>()
-        {
-            @Override
-            public Service apply(JSONObject element)
-            {
-                return new JsonService(element);
-            }
-        });
+        return iterate("services", JsonService::new);
     }
 
 
     @Override
-    public DateTime lastModified() throws ProtocolException
+    public DateTime lastModified()
     {
         return DateTime.parse(mResult.optString("last-modified").replaceAll("[-:]", ""));
     }
@@ -128,7 +114,7 @@ public final class JsonProvider implements Provider
 
         try
         {
-            return new Mapped<>(new JsonObjectArrayIterator(mResult.getJSONArray(field)), function);
+            return new Mapped<>(function, new JsonObjectArrayIterator(mResult.getJSONArray(field)));
         }
         catch (JSONException e)
         {
